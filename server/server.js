@@ -18,31 +18,51 @@ const port = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 
+export const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
 app.use(
   cors({
-    origin:
-      process.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL,
     credentials: true,
   })
 );
 
-io.on("connection", (socket) => {
-  console.log("User Connected:", socket.id);
-
-  socket.on("joinAuction", (tournamentId) => {
-    socket.join(tournamentId);
-    console.log(
-      `Socket ${socket.id} joined room ${tournamentId}`
-    );
-  });
-
-  socket.on("disconnect", () => {
-    console.log("User Disconnected");
-  });
-});
-
-app.use(cors());
 app.use(express.json());
+
+io.on("connection", (socket) => {
+  console.log(
+    "User Connected:",
+    socket.id
+  );
+
+  socket.on(
+    "joinAuction",
+    (tournamentId) => {
+      socket.join(
+        tournamentId
+      );
+
+      console.log(
+        `Socket ${socket.id} joined room ${tournamentId}`
+      );
+    }
+  );
+
+  socket.on(
+    "disconnect",
+    () => {
+      console.log(
+        "User Disconnected"
+      );
+    }
+  );
+});
 
 app.use("/api/players", playerRoutes);
 app.use("/api/teams", teamRoutes);
@@ -50,9 +70,16 @@ app.use("/api/auth", authRoutes);
 app.use("/api/auction", auctionRoutes);
 app.use("/api/tournament", tournamentRoutes);
 
+app.get("/", (req, res) => {
+  res.send(
+    "CricBid Backend Running 🚀"
+  );
+});
+
 server.listen(port, () => {
   console.log(
-    `Server running on http://localhost:${port}`
+    `Server running on port ${port}`
   );
+
   db();
 });
