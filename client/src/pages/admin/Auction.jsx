@@ -10,7 +10,7 @@ import {
 
 import {
   getPlayers,
-  selectedAuctionPlayer
+  setSelectedAuctionPlayerer
 } from "../../features/player/playerSlice";
 
 import {
