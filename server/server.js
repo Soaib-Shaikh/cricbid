@@ -18,11 +18,13 @@ const port = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 
-export const io = new Server(server, {
-  cors: {
-    origin: "*",
-  },
-});
+app.use(
+  cors({
+    origin:
+      process.env.CLIENT_URL,
+    credentials: true,
+  })
+);
 
 io.on("connection", (socket) => {
   console.log("User Connected:", socket.id);
