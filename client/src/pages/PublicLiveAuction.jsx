@@ -35,7 +35,7 @@ import {
 } from "lucide-react";
 
 const socket = io(
-  "http://localhost:5000"
+  "https://cricbid-backend.onrender.com"
 );
 
 const PublicLiveAuction = () => {
