@@ -307,7 +307,7 @@ const EditTournament =
                                 disabled={
                                     loading
                                 }
-                                className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-2xl font-bold text-lg"
+                                className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold text-lg"
                             >
                                 {loading
                                     ? "Updating..."

@@ -78,7 +78,7 @@ const Teams = () => {
           onClick={() =>
             navigate("/create-team")
           }
-          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center gap-2 shadow-lg transition-all"
+          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center gap-2 shadow-lg transition-all"
         >
           <Plus size={20} />
           Add Team
@@ -136,16 +136,16 @@ const Teams = () => {
 
                     </div>
 
-                    <div className="flex items-center justify-between bg-red-50 rounded-2xl px-4 py-3">
+                    <div className="flex items-center justify-between bg-green-50 rounded-2xl px-4 py-3">
 
-                      <div className="flex items-center gap-2 text-red-500">
+                      <div className="flex items-center gap-2 text-green-500">
                         <TrendingUp size={18} />
                         <span>
                           Spent
                         </span>
                       </div>
 
-                      <span className="font-bold text-red-600">
+                      <span className="font-bold text-green-600">
                         ₹ {team.spent}
                       </span>
 

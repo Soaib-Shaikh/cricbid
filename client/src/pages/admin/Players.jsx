@@ -60,8 +60,7 @@ const Players = () => {
       doc.setFontSize(11);
 
       doc.text(
-        `Tournament: ${
-          selectedTournament?.tournamentName || "-"
+        `Tournament: ${selectedTournament?.tournamentName || "-"
         }`,
         14,
         35
@@ -98,9 +97,9 @@ const Players = () => {
     roleFilter === "All"
       ? players
       : players.filter(
-          (player) =>
-            player.role === roleFilter
-        );
+        (player) =>
+          player.role === roleFilter
+      );
 
   const indexOfLastPlayer =
     currentPage * playersPerPage;
@@ -117,7 +116,7 @@ const Players = () => {
 
   const totalPages = Math.ceil(
     filteredPlayers.length /
-      playersPerPage
+    playersPerPage
   );
 
   return (
@@ -170,7 +169,7 @@ const Players = () => {
                 `/player-register/${selectedTournament?.tournamentId}`
               )
             }
-            className="bg-red-600 text-white px-5 py-3 rounded-2xl flex items-center gap-2"
+            className="bg-green-600 text-white px-5 py-3 rounded-2xl flex items-center gap-2"
           >
             <Plus size={18} />
             Add Player
@@ -284,15 +283,14 @@ const Players = () => {
                       </td>
 
                       <td className="p-4">
-                        <span className={`px-3 py-1 rounded-full text-sm ${
-                          player.status ===
-                          "sold"
+                        <span className={`px-3 py-1 rounded-full text-sm ${player.status ===
+                            "sold"
                             ? "bg-green-100 text-green-700"
                             : player.status ===
                               "unsold"
-                            ? "bg-red-100 text-red-700"
-                            : "bg-yellow-100 text-yellow-700"
-                        }`}>
+                              ? "bg-green-100 text-green-700"
+                              : "bg-yellow-100 text-yellow-700"
+                          }`}>
                           {
                             player.status
                           }

@@ -140,7 +140,7 @@ const CreateTeam = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-red-600 hover:bg-red-700 transition-all text-white py-4 rounded-xl font-semibold"
+                            className="w-full bg-green-600 hover:bg-green-700 transition-all text-white py-4 rounded-xl font-semibold"
                         >
 
                             {loading

@@ -145,13 +145,13 @@ const CreateTournament =
                         <div className="grid lg:grid-cols-2">
 
                             {/* LEFT */}
-                            <div className="bg-gradient-to-br from-red-600 via-red-500 to-orange-500 p-12 text-white flex flex-col justify-center">
+                            <div className="bg-gradient-to-br from-green-600 via-green-500 to-orange-500 p-12 text-white flex flex-col justify-center">
 
                                 <h2 className="text-5xl font-black leading-tight">
                                     Launch Your Cricket Tournament 🚀
                                 </h2>
 
-                                <p className="mt-6 text-red-100 leading-8 text-lg">
+                                <p className="mt-6 text-green-100 leading-8 text-lg">
                                     Manage teams, players, live auction and reports from one premium dashboard.
                                 </p>
 
@@ -306,7 +306,7 @@ const CreateTournament =
                                         disabled={
                                             loading
                                         }
-                                        className="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-2xl font-bold text-lg shadow-lg"
+                                        className="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold text-lg shadow-lg"
                                     >
                                         {loading
                                             ? "Creating..."

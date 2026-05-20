@@ -83,7 +83,7 @@ const Tournaments =
                   "/create-tournament"
                 )
               }
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-2xl font-bold flex items-center gap-3 shadow-lg"
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-2xl font-bold flex items-center gap-3 shadow-lg"
             >
               <Plus size={20} />
               Add Tournament
@@ -186,7 +186,7 @@ const Tournaments =
                             size={18}
                           />
 
-                          <span className="font-semibold text-red-600">
+                          <span className="font-semibold text-green-600">
                             {
                               tournament.tournamentId
                             }
@@ -218,7 +218,7 @@ const Tournaments =
                               tournament
                             )
                           }
-                          className="bg-red-600 hover:bg-red-700 text-white py-3 rounded-2xl font-bold"
+                          className="bg-green-600 hover:bg-green-700 text-white py-3 rounded-2xl font-bold"
                         >
                           Open 🚀
                         </button>
@@ -237,7 +237,7 @@ const Tournaments =
         </div>
 
       </div>
-      
+
     );
   };
 
