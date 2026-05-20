@@ -147,7 +147,7 @@ const Sidebar = () => {
             CricBid
           </h1>
 
-          <p className="text-[11px] text-red-500 tracking-wide">
+          <p className="text-[11px] text-green-500 tracking-wide">
             CRICKET AUCTION
           </p>
         </div>
@@ -157,9 +157,9 @@ const Sidebar = () => {
       {/* USER */}
       <div className="px-4 py-5 border-b border-gray-100">
 
-        <div className="bg-red-50 rounded-2xl p-4 flex items-center gap-3">
+        <div className="bg-green-50 rounded-2xl p-4 flex items-center gap-3">
 
-          <div className="w-11 h-11 rounded-full bg-red-600 flex items-center justify-center text-white font-semibold">
+          <div className="w-11 h-11 rounded-full bg-green-600 flex items-center justify-center text-white font-semibold">
             {
               displayUser?.name
                 ?.charAt(0)
@@ -200,8 +200,8 @@ const Sidebar = () => {
                 isActive,
               }) =>
                 `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${isActive
-                  ? "bg-red-600 text-white shadow-md"
-                  : "text-gray-700 hover:bg-red-50 hover:text-red-600"
+                  ? "bg-green-600 text-white shadow-md"
+                  : "text-gray-700 hover:bg-green-50 hover:text-green-600"
                 }`
               }
             >
@@ -225,7 +225,7 @@ const Sidebar = () => {
           onClick={
             handleLogout
           }
-          className="w-full bg-red-600 hover:bg-red-700 transition-all text-white py-3 rounded-xl text-sm font-medium flex items-center justify-center gap-2"
+          className="w-full bg-green-600 hover:bg-green-700 transition-all text-white py-3 rounded-xl text-sm font-medium flex items-center justify-center gap-2"
         >
           <LogOut
             size={18}

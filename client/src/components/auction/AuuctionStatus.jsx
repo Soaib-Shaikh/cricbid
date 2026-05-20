@@ -11,16 +11,16 @@ const AuctionStatus = ({
 }) => {
   if (status === "live") {
     return (
-      <div className="flex items-center gap-3 bg-red-500/15 border border-red-400/20 backdrop-blur-xl px-5 py-3 rounded-2xl shadow-xl">
+      <div className="flex items-center gap-3 bg-green-500/15 border border-green-400/20 backdrop-blur-xl px-5 py-3 rounded-2xl shadow-xl">
 
-        <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse" />
+        <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
 
         <Radio
           size={18}
-          className="text-red-300"
+          className="text-green-300"
         />
 
-        <span className="font-black text-red-200 text-sm tracking-wide">
+        <span className="font-black text-green-200 text-sm tracking-wide">
           LIVE
         </span>
 
@@ -51,10 +51,10 @@ const AuctionStatus = ({
 
         <XCircle
           size={18}
-          className="text-red-300"
+          className="text-green-300"
         />
 
-        <span className="font-black text-red-200 text-sm tracking-wide">
+        <span className="font-black text-green-200 text-sm tracking-wide">
           UNSOLD
         </span>
 

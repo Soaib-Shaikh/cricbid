@@ -49,7 +49,7 @@ const AuctionControls = ({
           <button
             onClick={onUnsold}
             disabled={disabled}
-            className="bg-red-600 hover:bg-red-700 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
+            className="bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
           >
             <XCircle size={18} />
             Unsold

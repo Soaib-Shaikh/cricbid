@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
 
         {/* NOTIFICATION */}
-        <button className="w-11 h-11 rounded-xl border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-red-50 hover:text-red-600 transition-all">
+        <button className="w-11 h-11 rounded-xl border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-green-50 hover:text-green-600 transition-all">
 
           <Bell size={18} />
 

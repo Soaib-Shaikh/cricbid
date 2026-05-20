@@ -60,7 +60,7 @@ const LiveBidHistory = ({
 
                   </div>
 
-                  <h2 className="text-3xl font-black text-red-600">
+                  <h2 className="text-3xl font-black text-green-600">
                     ₹ {bid.amount}
                   </h2>
 

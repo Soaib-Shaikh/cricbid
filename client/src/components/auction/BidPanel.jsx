@@ -13,7 +13,7 @@ const BidPanel = ({
 
       <div className="flex items-center gap-4">
 
-        <div className="w-14 h-14 rounded-2xl bg-red-100 flex items-center justify-center text-red-600 shrink-0">
+        <div className="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center text-green-600 shrink-0">
           <Trophy size={24} />
         </div>
 
@@ -22,7 +22,7 @@ const BidPanel = ({
             Current Highest Bid
           </p>
 
-          <h1 className="text-4xl font-black text-red-600 mt-1">
+          <h1 className="text-4xl font-black text-green-600 mt-1">
             ₹ {currentBid || 0}
           </h1>
         </div>
