@@ -58,29 +58,37 @@ export default function Login() {
     });
   };
 
-  const handleLogin =
-    async () => {
-      const res =
-        await dispatch(
-          loginUser(form)
-        );
+  const handleLogin = async () => {
+  if (
+    !form.email.trim() ||
+    !form.password.trim()
+  ) {
+    alert("All fields are required");
+    return;
+  }
 
-      if (
-        res.meta
-          .requestStatus ===
-        "fulfilled"
-      ) {
-        navigate(
-          "/tournaments"
-        );
-      } else {
-        alert(
-          res.payload
-            ?.message ||
-            "Login Failed"
-        );
-      }
-    };
+  try {
+    const res = await dispatch(
+      loginUser({
+        email: form.email,
+        password: form.password,
+      })
+    );
+
+    if (
+      loginUser.fulfilled.match(res)
+    ) {
+      navigate("/tournaments");
+    } else {
+      alert(
+        res.payload?.message ||
+        "Login Failed"
+      );
+    }
+  } catch (error) {
+    alert("Login Failed");
+  }
+};
 
   return (
     <div className="min-h-screen bg-[#F4F7FB] flex items-center justify-center px-4">
@@ -164,6 +172,7 @@ export default function Login() {
             <input
               type="email"
               name="email"
+              value={form.email}
               placeholder="Email"
               onChange={
                 handleChange
@@ -174,6 +183,7 @@ export default function Login() {
             <input
               type="password"
               name="password"
+              value={form.password}
               placeholder="Password"
               onChange={
                 handleChange

@@ -30,35 +30,41 @@ export default function Signup() {
   };
 
   const handleSignup = async () => {
-    if (
-      !form.name.trim() ||
-      !form.email.trim() ||
-      !form.phone.trim() ||
-      !form.password.trim()
-    ) {
-      alert("All fields are required");
-      return;
-    }
+  if (
+    !form.name.trim() ||
+    !form.email.trim() ||
+    !form.phone.trim() ||
+    !form.password.trim()
+  ) {
+    alert("All fields are required");
+    return;
+  }
 
-    try {
-      await api.post(
-        "/auth/register",
-        form
-      );
+  try {
+    const res = await api.post(
+      "/auth/register",
+      form
+    );
 
-      alert(
-        "Registered Successfully 🎉"
-      );
+    if (res.status === 201) {
+      alert("Registered Successfully 🎉");
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+      });
 
       navigate("/");
-    } catch (err) {
-      alert(
-        err.response?.data
-          ?.message ||
-        "Signup Failed"
-      );
     }
-  };
+  } catch (err) {
+    alert(
+      err.response?.data?.message ||
+      "Signup Failed"
+    );
+  }
+};
 
   return (
     <div className="min-h-screen bg-[#EEF2F7] flex items-center justify-center px-4 py-8">
@@ -190,6 +196,7 @@ export default function Signup() {
               <input
                 type="text"
                 name="name"
+                value={form.name}
                 placeholder="Enter your full name"
                 onChange={handleChange}
                 className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
@@ -207,6 +214,7 @@ export default function Signup() {
               <input
                 type="email"
                 name="email"
+                value={form.email}
                 placeholder="Enter your email"
                 onChange={handleChange}
                 className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
@@ -222,6 +230,7 @@ export default function Signup() {
               <input
                 type="tel"
                 name="phone"
+                value={form.phone}
                 placeholder="Enter phone number"
                 onChange={handleChange}
                 className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
@@ -238,6 +247,7 @@ export default function Signup() {
               <input
                 type="password"
                 name="password"
+                value={form.password}
                 placeholder="Create password"
                 onChange={handleChange}
                 className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
