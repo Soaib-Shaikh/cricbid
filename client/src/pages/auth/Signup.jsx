@@ -30,41 +30,46 @@ export default function Signup() {
   };
 
   const handleSignup = async () => {
-  if (
-    !form.name.trim() ||
-    !form.email.trim() ||
-    !form.phone.trim() ||
-    !form.password.trim()
-  ) {
-    alert("All fields are required");
-    return;
-  }
-
-  try {
-    const res = await api.post(
-      "/auth/register",
-      form
-    );
-
-    if (res.status === 201) {
-      alert("Registered Successfully 🎉");
-
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        password: "",
-      });
-
-      navigate("/");
+    if (
+      !form.name.trim() ||
+      !form.email.trim() ||
+      !form.phone.trim() ||
+      !form.password.trim()
+    ) {
+      alert("All fields are required");
+      return;
     }
-  } catch (err) {
-    alert(
-      err.response?.data?.message ||
-      "Signup Failed"
-    );
-  }
-};
+
+    try {
+      const res = await api.post(
+        "/auth/register",
+        form
+      );
+
+      if (res.status === 201) {
+        setForm({
+          name: "",
+          email: "",
+          phone: "",
+          password: "",
+        });
+
+        alert(
+          "Registered Successfully 🎉"
+        );
+
+        window.location.replace("/");
+      }
+
+    } catch (err) {
+      console.log(err);
+
+      alert(
+        err.response?.data?.message ||
+        "Signup Failed"
+      );
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#EEF2F7] flex items-center justify-center px-4 py-8">
