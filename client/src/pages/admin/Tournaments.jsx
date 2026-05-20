@@ -237,6 +237,7 @@ const Tournaments =
         </div>
 
       </div>
+      
     );
   };
 
