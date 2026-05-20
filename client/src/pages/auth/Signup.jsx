@@ -29,25 +29,32 @@ export default function Signup() {
   };
 
   const handleSignup = async () => {
+    if (
+      !form.name.trim() ||
+      !form.email.trim() ||
+      !form.password.trim()
+    ) {
+      alert("All fields are required");
+      return;
+    }
 
     try {
-
       await api.post(
         "/auth/register",
         form
       );
 
-      alert("Registered Successfully 🎉");
-
-      navigate("/");
-
-    } catch (err) {
-
       alert(
-        err.response?.data?.message ||
-        "Signup Failed"
+        "Registered Successfully 🎉"
       );
 
+      navigate("/");
+    } catch (err) {
+      alert(
+        err.response?.data
+          ?.message ||
+        "Signup Failed"
+      );
     }
   };
 
