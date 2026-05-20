@@ -45,7 +45,7 @@ export const loginUser =
 
         // SAVE TOKEN
         localStorage.setItem(
-          "tokens",
+          "token",
           res.data.token
         );
 
@@ -81,7 +81,7 @@ const authSlice =
 
       token:
         localStorage.getItem(
-          "tokens"
+          "token"
         ) || null,
 
       loading: false,
@@ -94,7 +94,7 @@ const authSlice =
         state.token = null;
 
         localStorage.removeItem(
-          "tokens"
+          "token"
         );
 
         localStorage.removeItem(
