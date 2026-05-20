@@ -161,7 +161,7 @@ const PlayerRegistration = () => {
           {/* CONTENT */}
           <div className="absolute inset-0 p-6 lg:p-8 flex flex-col justify-end text-white">
 
-            <div className="bg-red-600 w-fit px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
+            <div className="bg-green-600 w-fit px-4 py-1.5 rounded-full text-xs font-semibold mb-4">
 
               Registration Open 🏏
 
@@ -255,7 +255,7 @@ const PlayerRegistration = () => {
                   handleChange
                 }
                 placeholder="Enter name"
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-red-500 text-sm"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-green-500 text-sm"
               />
 
             </div>
@@ -275,7 +275,7 @@ const PlayerRegistration = () => {
                   handleChange
                 }
                 placeholder="Enter phone"
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-red-500 text-sm"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-green-500 text-sm"
               />
 
             </div>
@@ -293,7 +293,7 @@ const PlayerRegistration = () => {
                 onChange={
                   handleChange
                 }
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-red-500 text-sm"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-green-500 text-sm"
               >
 
                 <option value="">
@@ -338,7 +338,7 @@ const PlayerRegistration = () => {
                   handleChange
                 }
                 placeholder="Enter price"
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-red-500 text-sm"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-green-500 text-sm"
               />
 
             </div>
@@ -358,7 +358,7 @@ const PlayerRegistration = () => {
                 onChange={
                   handleChange
                 }
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-red-500 text-sm"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-green-500 text-sm"
               >
 
                 <option value="">
@@ -388,7 +388,7 @@ const PlayerRegistration = () => {
                 name="bowlingStyle"
                 value={formData.bowlingStyle}
                 onChange={handleChange}
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-red-500 text-sm"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-green-500 text-sm"
               >
 
                 <option value="">
@@ -436,7 +436,7 @@ const PlayerRegistration = () => {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Enter address"
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-red-500 resize-none text-sm"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:border-green-500 resize-none text-sm"
               />
 
             </div>
@@ -460,7 +460,7 @@ const PlayerRegistration = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-red-600 hover:bg-red-700 transition-all text-white py-3 rounded-2xl text-sm font-semibold shadow-md"
+              className="w-full bg-green-600 hover:bg-green-700 transition-all text-white py-3 rounded-2xl text-sm font-semibold shadow-md"
             >
 
               {

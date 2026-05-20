@@ -96,7 +96,7 @@ export default function Login() {
       <div className="w-full max-w-5xl bg-white rounded-[32px] overflow-hidden shadow-xl grid lg:grid-cols-2">
 
         {/* LEFT */}
-        <div className="bg-gradient-to-br from-red-600 to-red-500 p-10 text-white flex flex-col justify-center relative overflow-hidden">
+        <div className="bg-gradient-to-br from-green-600 to-green-500 p-10 text-white flex flex-col justify-center relative overflow-hidden">
 
           <div className="absolute top-0 right-0 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
 
@@ -106,7 +106,7 @@ export default function Login() {
               CricBid 🏏
             </h1>
 
-            <p className="mt-4 text-red-100 text-[15px] leading-7 max-w-md">
+            <p className="mt-4 text-green-100 text-[15px] leading-7 max-w-md">
               Professional cricket auction platform
             </p>
 
@@ -114,7 +114,7 @@ export default function Login() {
 
               <div className="bg-white/10 rounded-2xl px-5 py-4 flex items-center gap-4">
 
-                <div className="w-11 h-11 rounded-xl bg-white text-red-600 flex items-center justify-center">
+                <div className="w-11 h-11 rounded-xl bg-white text-green-600 flex items-center justify-center">
                   <Trophy size={20} />
                 </div>
 
@@ -128,7 +128,7 @@ export default function Login() {
 
               <div className="bg-white/10 rounded-2xl px-5 py-4 flex items-center gap-4">
 
-                <div className="w-11 h-11 rounded-xl bg-white text-red-600 flex items-center justify-center">
+                <div className="w-11 h-11 rounded-xl bg-white text-green-600 flex items-center justify-center">
                   <Users size={20} />
                 </div>
 
@@ -142,7 +142,7 @@ export default function Login() {
 
               <div className="bg-white/10 rounded-2xl px-5 py-4 flex items-center gap-4">
 
-                <div className="w-11 h-11 rounded-xl bg-white text-red-600 flex items-center justify-center">
+                <div className="w-11 h-11 rounded-xl bg-white text-green-600 flex items-center justify-center">
                   <ShieldCheck size={20} />
                 </div>
 
@@ -198,7 +198,7 @@ export default function Login() {
               disabled={
                 loading
               }
-              className="w-full bg-red-600 hover:bg-red-700 text-white py-3.5 rounded-2xl font-semibold"
+              className="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-2xl font-semibold"
             >
               {loading
                 ? "Logging in..."
@@ -209,7 +209,7 @@ export default function Login() {
               Don’t have an account?{' '}
               <Link
                 to="/signup"
-                className="text-red-600 font-bold hover:underline"
+                className="text-green-600 font-bold hover:underline"
               >
                 Sign up
               </Link>

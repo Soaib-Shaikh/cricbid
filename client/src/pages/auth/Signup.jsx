@@ -99,7 +99,7 @@ export default function Signup() {
               {/* CARD */}
               <div className="bg-white/5 border border-white/10 rounded-2xl px-4 py-4 flex items-center gap-4 backdrop-blur-md">
 
-                <div className="w-11 h-11 rounded-xl bg-red-500 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-green-500 flex items-center justify-center shrink-0">
 
                   <Trophy size={18} />
 
@@ -122,7 +122,7 @@ export default function Signup() {
               {/* CARD */}
               <div className="bg-white/5 border border-white/10 rounded-2xl px-4 py-4 flex items-center gap-4 backdrop-blur-md">
 
-                <div className="w-11 h-11 rounded-xl bg-red-500 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-green-500 flex items-center justify-center shrink-0">
 
                   <Users size={18} />
 
@@ -145,7 +145,7 @@ export default function Signup() {
               {/* CARD */}
               <div className="bg-white/5 border border-white/10 rounded-2xl px-4 py-4 flex items-center gap-4 backdrop-blur-md">
 
-                <div className="w-11 h-11 rounded-xl bg-red-500 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-xl bg-green-500 flex items-center justify-center shrink-0">
 
                   <ShieldCheck size={18} />
 
@@ -203,7 +203,7 @@ export default function Signup() {
                 value={form.name}
                 placeholder="Enter your full name"
                 onChange={handleChange}
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-green-500"
               />
 
             </div>
@@ -221,7 +221,7 @@ export default function Signup() {
                 value={form.email}
                 placeholder="Enter your email"
                 onChange={handleChange}
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-green-500"
               />
 
             </div>
@@ -237,7 +237,7 @@ export default function Signup() {
                 value={form.phone}
                 placeholder="Enter phone number"
                 onChange={handleChange}
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-green-500"
               />
             </div>
 
@@ -254,7 +254,7 @@ export default function Signup() {
                 value={form.password}
                 placeholder="Create password"
                 onChange={handleChange}
-                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-green-500"
               />
 
             </div>
@@ -264,7 +264,7 @@ export default function Signup() {
               type="button"
               disabled={loading}
               onClick={handleSignup}
-              className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 transition-all text-white py-3 rounded-2xl text-sm font-semibold shadow-lg shadow-red-500/20"
+              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 transition-all text-white py-3 rounded-2xl text-sm font-semibold shadow-lg shadow-green-500/20"
             >
               {loading
                 ? "Creating Account..."
@@ -280,7 +280,7 @@ export default function Signup() {
 
             <Link
               to="/"
-              className="text-red-600 font-bold hover:underline"
+              className="text-green-600 font-bold hover:underline"
             >
 
               Login
