@@ -12,6 +12,7 @@ import {
 
 export default function Signup() {
 
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -40,34 +41,32 @@ export default function Signup() {
       return;
     }
 
+    setLoading(true);
+
     try {
-      const res = await api.post(
+      await api.post(
         "/auth/register",
         form
       );
 
-      if (res.status === 201) {
-        setForm({
-          name: "",
-          email: "",
-          phone: "",
-          password: "",
-        });
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+      });
 
-        alert(
-          "Registered Successfully 🎉"
-        );
+      alert("Registered Successfully 🎉");
 
-        window.location.replace("/");
-      }
+      navigate("/");
 
     } catch (err) {
-      console.log(err);
-
       alert(
         err.response?.data?.message ||
         "Signup Failed"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -263,12 +262,13 @@ export default function Signup() {
             {/* BUTTON */}
             <button
               type="button"
+              disabled={loading}
               onClick={handleSignup}
-              className="w-full bg-red-600 hover:bg-red-700 transition-all text-white py-3 rounded-2xl text-sm font-semibold shadow-lg shadow-red-500/20"
+              className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-400 transition-all text-white py-3 rounded-2xl text-sm font-semibold shadow-lg shadow-red-500/20"
             >
-
-              Create Account 🏏
-
+              {loading
+                ? "Creating Account..."
+                : "Create Account 🏏"}
             </button>
 
           </div>
