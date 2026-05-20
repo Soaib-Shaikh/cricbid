@@ -1,41 +1,65 @@
 import mongoose from "mongoose";
 
-const teamSchema = new mongoose.Schema({
-    name: {
+const teamSchema =
+  new mongoose.Schema(
+    {
+      name: {
         type: String,
         required: true,
-        unique: true
-    },
-    logo: {
+      },
+
+      logo: {
         type: String,
-        required: true
-    },
-    budget: {
+        required: true,
+      },
+
+      budget: {
         type: Number,
-        default: 100000
-    },
-    spent: {
+        default: 100000,
+      },
+
+      spent: {
         type: Number,
-        default: 0
-    },
-    remaining: {
+        default: 0,
+      },
+
+      remaining: {
         type: Number,
-        default: 100000
-    },
-    players: [
+        default: 100000,
+      },
+
+      players: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Player"
+          type:
+            mongoose.Schema.Types.ObjectId,
+          ref: "Player",
+        },
+      ],
 
-        }
-    ],
-    tournamentId: {
+      tournamentId: {
         type: String,
         required: true,
+      },
+    },
+    {
+      timestamps: true,
     }
-},{
-    timestamps: true
-})
+  );
 
-const Team = mongoose.model("Team", teamSchema);
+teamSchema.index(
+  {
+    name: 1,
+    tournamentId: 1,
+  },
+  {
+    unique: true,
+  }
+);
+
+const Team =
+  mongoose.model(
+    "Team",
+    teamSchema
+  );
+
 export default Team;
