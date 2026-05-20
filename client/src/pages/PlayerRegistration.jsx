@@ -300,6 +300,7 @@ const PlayerRegistration = () => {
                   Select Role
                 </option>
 
+
                 <option>
                   Batsman
                 </option>
