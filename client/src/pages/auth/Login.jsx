@@ -195,6 +195,16 @@ export default function Login() {
                 : "Login to CricBid 🏏"}
             </button>
 
+            <p className="mt-5 text-center text-sm text-gray-500">
+              Don’t have an account?{' '}
+              <Link
+                to="/signup"
+                className="text-red-600 font-bold hover:underline"
+              >
+                Sign up
+              </Link>
+            </p>
+
           </div>
 
         </div>
