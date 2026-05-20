@@ -257,6 +257,7 @@ export default function Signup() {
 
             {/* BUTTON */}
             <button
+              type="button"
               onClick={handleSignup}
               className="w-full bg-red-600 hover:bg-red-700 transition-all text-white py-3 rounded-2xl text-sm font-semibold shadow-lg shadow-red-500/20"
             >
