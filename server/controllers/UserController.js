@@ -27,7 +27,7 @@ export const registerUser = async (req, res) => {
             tournamentId
         })
 
-        await sendEmail(
+         sendEmail(
             user.email,
             "Tournament Registered 🎉",
             `Hello ${user.name},
