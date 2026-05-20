@@ -15,6 +15,7 @@ export default function Signup() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     password: "",
   });
 
@@ -32,6 +33,7 @@ export default function Signup() {
     if (
       !form.name.trim() ||
       !form.email.trim() ||
+      !form.phone.trim() ||
       !form.password.trim()
     ) {
       alert("All fields are required");
@@ -210,6 +212,20 @@ export default function Signup() {
                 className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
               />
 
+            </div>
+
+            <div>
+              <label className="text-sm font-semibold text-gray-700">
+                Phone Number
+              </label>
+
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Enter phone number"
+                onChange={handleChange}
+                className="w-full mt-2 border border-gray-200 rounded-2xl px-5 py-3 text-sm outline-none focus:border-red-500"
+              />
             </div>
 
             {/* PASSWORD */}
