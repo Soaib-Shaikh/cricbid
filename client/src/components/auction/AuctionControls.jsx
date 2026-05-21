@@ -31,7 +31,7 @@ const AuctionControls = ({
           <button
             onClick={onStart}
             disabled={disabled}
-            className="bg-green-600 hover:bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
+            className="bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
           >
             <Play size={18} />
             Start
@@ -40,7 +40,7 @@ const AuctionControls = ({
           <button
             onClick={onSold}
             disabled={disabled}
-            className="bg-green-600 hover:bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
+            className="bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
           >
             <CheckCircle size={18} />
             Sold
@@ -49,7 +49,7 @@ const AuctionControls = ({
           <button
             onClick={onUnsold}
             disabled={disabled}
-            className="bg-green-600 hover:bg-green-700 disabled:bg-green-300 disabled:cursor-not-allowed text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
+            className="bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-bold flex items-center justify-center gap-2 shadow-lg"
           >
             <XCircle size={18} />
             Unsold
