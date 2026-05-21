@@ -115,42 +115,43 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-emerald-50 p-6">
 
       {/* TOP HEADER */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 mb-8">
+      <div className="grid md:grid-cols-4 gap-5 mb-8">
 
-        <div>
-          <h1 className="text-4xl font-black text-slate-900">
-            Welcome Back 👋
-          </h1>
-
-          <p className="text-slate-500 mt-2 text-lg">
-            Manage your cricket auction professionally
+        <div className="bg-white rounded-3xl p-5 shadow border">
+          <p className="text-slate-500 text-sm">
+            Tournament ID
           </p>
+          <h3 className="text-xl font-black mt-2">
+            {selectedTournament?.tournamentId}
+          </h3>
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="bg-white rounded-3xl p-5 shadow border">
+          <p className="text-slate-500 text-sm">
+            Live Status
+          </p>
+          <h3 className="text-xl font-black text-red-500 mt-2">
+            LIVE
+          </h3>
+        </div>
 
-          <div className="bg-white border border-slate-200 px-5 py-3 rounded-2xl shadow-sm flex items-center gap-2">
-            <Activity
-              size={18}
-              className="text-red-500 animate-pulse"
-            />
-            <span className="font-bold text-slate-800">
-              Auction Live
-            </span>
-          </div>
+        <div className="bg-white rounded-3xl p-5 shadow border">
+          <p className="text-slate-500 text-sm">
+            Organizer
+          </p>
+          <h3 className="text-xl font-black mt-2">
+            {selectedTournament?.organizerName}
+          </h3>
+        </div>
 
+        <div className="bg-gradient-to-r from-emerald-600 to-green-500 rounded-3xl p-5 shadow text-white">
           <button
-            onClick={
-              handleShare
-            }
-            className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl shadow-lg flex items-center gap-2 font-bold transition"
+            onClick={handleShare}
+            className="w-full h-full flex items-center justify-center gap-3 font-bold text-lg"
           >
-            <Share2
-              size={18}
-            />
-            Share Live
+            <Share2 size={20} />
+            Share Live Link
           </button>
-
         </div>
 
       </div>
@@ -256,11 +257,9 @@ const Dashboard = () => {
 
           {selectedTournament?.logo ? (
             <img
-              src={
-                selectedTournament.logo
-              }
+              src={selectedTournament.logo}
               alt="tournament"
-              className="w-full max-w-[380px] h-[380px] object-cover rounded-[32px] shadow-2xl border-8 border-white"
+              className="w-full max-w-[420px] h-[420px] object-contain rounded-[32px] shadow-2xl border-8 border-white bg-white p-2"
             />
           ) : (
             <div className="w-full h-[380px] rounded-[32px] bg-slate-100 flex items-center justify-center text-slate-500 text-2xl font-bold">
