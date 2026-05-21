@@ -3,6 +3,7 @@ import {
   Crown,
   Wallet,
   Users,
+  Trophy,
 } from "lucide-react";
 
 import {
@@ -19,26 +20,37 @@ const LiveAuctionTeams = ({
     );
 
   return (
-    <div className="bg-white/10 border border-white/10 backdrop-blur-2xl rounded-3xl p-5 shadow-2xl h-full">
+    <div className="h-full bg-gradient-to-b from-slate-900/95 via-slate-800/95 to-slate-900/95 border border-white/10 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+
+      {/* BG GLOW */}
+      <div className="absolute top-0 right-0 w-36 h-36 bg-purple-500/10 blur-3xl rounded-full" />
+      <div className="absolute bottom-0 left-0 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full" />
 
       {/* HEADER */}
-      <div className="mb-5">
+      <div className="relative z-10 mb-6">
 
-        <h2 className="text-2xl font-black text-white">
-          Team War Room
-        </h2>
+        <div className="flex items-center gap-3">
+          <Trophy
+            size={28}
+            className="text-yellow-300"
+          />
 
-        <p className="text-gray-400 text-sm mt-1">
-          Live bidding teams
+          <h2 className="text-3xl font-black text-white">
+            Team War Room
+          </h2>
+        </div>
+
+        <p className="text-gray-400 text-sm mt-2">
+          Live bidding teams leaderboard
         </p>
 
       </div>
 
       {/* TEAM LIST */}
-      <div className="space-y-3 max-h-[580px] overflow-y-auto pr-1">
+      <div className="relative z-10 space-y-4 max-h-[620px] overflow-y-auto pr-2">
 
         {teams?.length > 0 ? (
-          teams.map((team) => {
+          teams.map((team, index) => {
             const isHighest =
               highestBidder ===
               team._id;
@@ -46,24 +58,27 @@ const LiveAuctionTeams = ({
             return (
               <div
                 key={team._id}
-                className={`rounded-2xl p-4 border transition-all duration-300 ${
+                className={`rounded-3xl p-5 border transition-all duration-300 ${
                   isHighest
-                    ? "bg-yellow-400/15 border-yellow-300 shadow-[0_0_25px_rgba(250,204,21,0.25)] scale-[1.01]"
-                    : "bg-black/20 border-white/10 hover:bg-white/10"
+                    ? "bg-gradient-to-r from-yellow-400/20 to-orange-500/10 border-yellow-300 shadow-[0_0_30px_rgba(250,204,21,0.2)] scale-[1.02]"
+                    : "bg-white/5 border-white/10 hover:bg-white/10"
                 }`}
               >
 
                 <div className="flex items-center gap-4">
 
-                  {/* LOGO */}
-                  <div className="w-14 h-14 rounded-2xl overflow-hidden border border-white/10 bg-slate-800">
+                  {/* RANK */}
+                  <div className="w-10 h-10 rounded-2xl bg-black/30 flex items-center justify-center text-white font-black">
+                    #{index + 1}
+                  </div>
 
+                  {/* LOGO */}
+                  <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/10 bg-slate-800 shadow-lg">
                     <img
                       src={team.logo}
                       alt={team.name}
                       className="w-full h-full object-cover"
                     />
-
                   </div>
 
                   {/* INFO */}
@@ -71,12 +86,12 @@ const LiveAuctionTeams = ({
 
                     <div className="flex items-center justify-between">
 
-                      <h3 className="text-white font-black text-base truncate max-w-[130px]">
+                      <h3 className="text-white font-black text-lg truncate max-w-[160px]">
                         {team.name}
                       </h3>
 
                       {isHighest && (
-                        <div className="bg-yellow-400 text-black px-3 py-1 rounded-xl flex items-center gap-1 font-black text-[10px]">
+                        <div className="bg-gradient-to-r from-yellow-300 to-orange-500 text-black px-3 py-2 rounded-2xl flex items-center gap-2 font-black text-[10px] shadow-lg">
                           <Crown size={12} />
                           LEADING
                         </div>
@@ -84,16 +99,37 @@ const LiveAuctionTeams = ({
 
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 mt-3">
+                    {/* STATS */}
+                    <div className="grid grid-cols-2 gap-4 mt-4">
 
-                      <div className="flex items-center gap-2 text-green-300 text-xs font-semibold">
-                        <Wallet size={14} />
-                        ₹ {team.remaining}
+                      <div className="bg-green-500/10 border border-green-400/20 rounded-2xl p-3 flex items-center gap-2">
+                        <Wallet
+                          size={16}
+                          className="text-green-300"
+                        />
+                        <div>
+                          <p className="text-gray-400 text-[10px] uppercase">
+                            Budget
+                          </p>
+                          <p className="text-green-300 font-bold text-sm">
+                            ₹ {team.remaining}
+                          </p>
+                        </div>
                       </div>
 
-                      <div className="flex items-center gap-2 text-cyan-300 text-xs font-semibold">
-                        <Users size={14} />
-                        {team.players?.length || 0}
+                      <div className="bg-cyan-500/10 border border-cyan-400/20 rounded-2xl p-3 flex items-center gap-2">
+                        <Users
+                          size={16}
+                          className="text-cyan-300"
+                        />
+                        <div>
+                          <p className="text-gray-400 text-[10px] uppercase">
+                            Players
+                          </p>
+                          <p className="text-cyan-300 font-bold text-sm">
+                            {team.players?.length || 0}
+                          </p>
+                        </div>
                       </div>
 
                     </div>
@@ -106,8 +142,8 @@ const LiveAuctionTeams = ({
             );
           })
         ) : (
-          <div className="text-center py-20 text-gray-400">
-            No teams loaded
+          <div className="text-center py-24 text-gray-400">
+            No teams available
           </div>
         )}
 

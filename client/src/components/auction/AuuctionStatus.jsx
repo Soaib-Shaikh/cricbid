@@ -9,69 +9,62 @@ import {
 const AuctionStatus = ({
   status,
 }) => {
-  if (status === "live") {
-    return (
-      <div className="flex items-center gap-3 bg-green-500/15 border border-green-400/20 backdrop-blur-xl px-5 py-3 rounded-2xl shadow-xl">
+  const configs = {
+    live: {
+      icon: Radio,
+      text: "LIVE AUCTION",
+      classes:
+        "from-green-500/20 to-emerald-500/10 border-green-400/20 text-green-200",
+      pulse: true,
+    },
 
-        <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
+    sold: {
+      icon: Trophy,
+      text: "PLAYER SOLD",
+      classes:
+        "from-yellow-400/20 to-orange-500/10 border-yellow-300/20 text-yellow-200",
+    },
 
-        <Radio
-          size={18}
-          className="text-green-300"
-        />
+    unsold: {
+      icon: XCircle,
+      text: "UNSOLD",
+      classes:
+        "from-red-500/20 to-rose-500/10 border-red-400/20 text-red-200",
+    },
 
-        <span className="font-black text-green-200 text-sm tracking-wide">
-          LIVE
-        </span>
+    waiting: {
+      icon: Clock3,
+      text: "WAITING",
+      classes:
+        "from-cyan-500/20 to-blue-500/10 border-cyan-300/20 text-cyan-200",
+    },
+  };
 
-      </div>
-    );
-  }
+  const current =
+    configs[status] ||
+    configs.waiting;
 
-  if (status === "sold") {
-    return (
-      <div className="flex items-center gap-3 bg-yellow-500/15 border border-yellow-300/20 backdrop-blur-xl px-5 py-3 rounded-2xl shadow-xl">
-
-        <Trophy
-          size={18}
-          className="text-yellow-300"
-        />
-
-        <span className="font-black text-yellow-200 text-sm tracking-wide">
-          SOLD
-        </span>
-
-      </div>
-    );
-  }
-
-  if (status === "unsold") {
-    return (
-      <div className="flex items-center gap-3 bg-red-900/20 border border-red-400/20 backdrop-blur-xl px-5 py-3 rounded-2xl shadow-xl">
-
-        <XCircle
-          size={18}
-          className="text-green-300"
-        />
-
-        <span className="font-black text-green-200 text-sm tracking-wide">
-          UNSOLD
-        </span>
-
-      </div>
-    );
-  }
+  const Icon =
+    current.icon;
 
   return (
-    <div className="flex items-center gap-3 bg-cyan-500/10 border border-cyan-300/20 backdrop-blur-xl px-5 py-3 rounded-2xl shadow-xl">
+    <div
+      className={`flex items-center gap-3 bg-gradient-to-r ${current.classes} border backdrop-blur-2xl px-6 py-4 rounded-3xl shadow-xl`}
+    >
 
-      <Clock3
-        size={18}
-        className="text-cyan-300"
+      {current.pulse && (
+        <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
+      )}
+
+      <Icon
+        size={20}
+        className={current.text.includes("LIVE")
+          ? "text-green-300"
+          : ""}
       />
 
-      <span className="font-black text-cyan-200 text-sm tracking-wide">
-        WAITING
+      <span className="font-black text-sm tracking-[2px]">
+        {current.text}
       </span>
 
     </div>
