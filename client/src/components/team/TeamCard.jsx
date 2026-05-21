@@ -38,7 +38,7 @@ const TeamCard = ({
 
         <button
           onClick={() => onBid(team)}
-          className="w-full mt-3 bg-red-600 hover:bg-red-700 text-white py-2 rounded-xl font-bold text-sm flex items-center justify-center gap-1"
+          className="w-full mt-3 bg-green-600 hover:bg-green-700 text-white py-2 rounded-xl font-bold text-sm flex items-center justify-center gap-1"
         >
           <Zap size={14} />
           BID
