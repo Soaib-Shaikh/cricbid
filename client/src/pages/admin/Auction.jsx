@@ -548,21 +548,53 @@ const Auction = () => {
 
             <button
               onClick={handleShareWhatsApp}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-4 rounded-2xl flex items-center gap-2 font-bold shadow-lg"
+              className="
+    bg-green-100
+    text-green-700
+    hover:bg-green-600
+    hover:text-white
+    px-6
+    py-4
+    rounded-2xl
+    flex
+    items-center
+    gap-2
+    font-bold
+    shadow-sm
+    hover:shadow-xl
+    hover:-translate-y-1
+    transition-all
+    duration-300
+  "
             >
               <Share2 size={18} />
               Share
             </button>
 
-            <input
-              type="number"
-              value={playerNumber}
-              onChange={(e) =>
-                setPlayerNumber(e.target.value)
-              }
-              placeholder="Enter Player No."
-              className="bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 outline-none w-[220px]"
-            />
+            <button
+              onClick={handleSearchPlayer}
+              className="
+    bg-green-100
+    text-green-700
+    hover:bg-green-600
+    hover:text-white
+    px-6
+    py-4
+    rounded-2xl
+    flex
+    items-center
+    gap-2
+    font-bold
+    shadow-sm
+    hover:shadow-xl
+    hover:-translate-y-1
+    transition-all
+    duration-300
+  "
+            >
+              <Search size={18} />
+              Search
+            </button>
 
             <button
               onClick={handleSearchPlayer}
