@@ -41,7 +41,7 @@ export default function AdminLayout({
                     <img
                         src={logo}
                         alt="CricBid"
-                        className="h-20 w-20 object-contain"
+                        className="h-15 w-20 object-contain"
                     />
                 </div>
 
