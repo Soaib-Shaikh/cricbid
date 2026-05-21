@@ -27,31 +27,26 @@ export const registerUser = async (req, res) => {
             tournamentId
         })
 
-        const mailSent =
-            await sendEmail(
-                user.email,
-                "Tournament Registered 🎉",
-                `Hello ${user.name},
-
-                Thank you for using CricBid!
-
-                Your Tournament ID: ${user.tournamentId}
-
-                You can now login and start your auction.
-
-                Best of luck 🔥`
-            );
-
-        console.log(
-            "Mail status:",
-            mailSent
-        );
-
         res.status(201).json({
             success: true,
             message: "Signup successful",
             user,
         });
+
+        sendEmail(
+            user.email,
+            "Tournament Registered 🎉",
+            `Hello ${user.name},
+
+            Thank you for using CricBid!
+
+            Your Tournament ID: ${user.tournamentId}
+
+            You can now login and start your auction.
+
+            Best of luck 🔥`
+        );
+
     } catch (error) {
         return res.status(500).json({ message: error.message })
 
