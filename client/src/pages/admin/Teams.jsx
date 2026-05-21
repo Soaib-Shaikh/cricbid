@@ -175,7 +175,7 @@ const Teams = () => {
                         `/team-players/${team._id}`
                       )
                     }
-                    className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white py-3 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2"
+                    className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white py-3 rounded-2xl font-semibold transition-all flex items-center justify-center gap-2"
                   >
 
                     <Users size={18} />
