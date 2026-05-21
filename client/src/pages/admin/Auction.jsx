@@ -19,6 +19,8 @@ import {
 
 import {
   Search,
+  Link,
+  Share2
 } from "lucide-react";
 
 import PlayerCard from "../../components/player/PlayerCard";
@@ -483,6 +485,39 @@ const Auction = () => {
       );
     };
 
+  // Live Link
+  const handleCopyLiveLink = async () => {
+    if (!selectedTournament?.tournamentId) {
+      alert("Select tournament first");
+      return;
+    }
+
+    const liveLink = `${window.location.origin}/live/${selectedTournament.tournamentId}`;
+
+    await navigator.clipboard.writeText(
+      liveLink
+    );
+
+    alert("Live link copied 🔗");
+  };
+
+  const handleShareWhatsApp = () => {
+    if (!selectedTournament?.tournamentId) {
+      alert("Select tournament first");
+      return;
+    }
+
+    const liveLink = `${window.location.origin}/live/${selectedTournament.tournamentId}`;
+
+    window.open(
+      `https://wa.me/?text=${encodeURIComponent(
+        `🏏 Join Live CricBid Auction!\n${liveLink}`
+      )}`,
+      "_blank"
+    );
+  };
+
+
   return (
     <div className="min-h-screen bg-[#F3F6FB] p-6">
 
@@ -501,7 +536,23 @@ const Auction = () => {
             </p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3 items-center">
+
+            <button
+              onClick={handleCopyLiveLink}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-4 rounded-2xl flex items-center gap-2 font-bold shadow-lg"
+            >
+              <Link size={18} />
+              Copy Live Link
+            </button>
+
+            <button
+              onClick={handleShareWhatsApp}
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-4 rounded-2xl flex items-center gap-2 font-bold shadow-lg"
+            >
+              <Share2 size={18} />
+              Share
+            </button>
 
             <input
               type="number"
