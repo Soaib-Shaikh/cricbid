@@ -13,10 +13,10 @@ const PlayerCard = ({
     return (
       <div className="bg-white rounded-3xl border border-gray-200 shadow-lg h-[620px] flex flex-col items-center justify-center">
 
-        <div className="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center">
+        <div className="w-24 h-24 rounded-full bg-green-100 flex items-center justify-center">
           <UserCircle2
             size={50}
-            className="text-red-500"
+            className="text-green-500"
           />
         </div>
 
@@ -36,10 +36,10 @@ const PlayerCard = ({
     <div className="bg-white rounded-3xl border border-gray-200 shadow-xl overflow-hidden">
 
       {/* TOP */}
-      <div className="bg-gradient-to-r from-red-600 to-red-500 px-6 py-5 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-green-600 to-green-500 px-6 py-5 flex items-center justify-between">
 
         <div>
-          <p className="text-red-100 text-sm uppercase tracking-wider">
+          <p className="text-green-100 text-sm uppercase tracking-wider">
             Live Auction Player
           </p>
 

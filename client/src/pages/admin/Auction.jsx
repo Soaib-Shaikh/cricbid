@@ -515,7 +515,7 @@ const Auction = () => {
 
             <button
               onClick={handleSearchPlayer}
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-4 rounded-2xl flex items-center gap-2 font-bold shadow-lg"
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-2xl flex items-center gap-2 font-bold shadow-lg"
             >
               <Search size={18} />
               Search
@@ -599,7 +599,7 @@ const Auction = () => {
 
             <button
               onClick={handleCustomBid}
-              className="w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white py-4 rounded-2xl font-black shadow-lg"
+              className="w-full bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white py-4 rounded-2xl font-black shadow-lg"
             >
               Place Custom Bid
             </button>
@@ -619,7 +619,7 @@ const Auction = () => {
                 Teams ⚡
               </h2>
 
-              <span className="bg-red-100 text-red-600 px-4 py-2 rounded-full font-bold text-sm">
+              <span className="bg-green-100 text-green-600 px-4 py-2 rounded-full font-bold text-sm">
                 {teams.length} Teams
               </span>
 
