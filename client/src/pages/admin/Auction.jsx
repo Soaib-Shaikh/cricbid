@@ -571,6 +571,16 @@ const Auction = () => {
               Share
             </button>
 
+            <input
+              type="number"
+              value={playerNumber}
+              onChange={(e) =>
+                setPlayerNumber(e.target.value)
+              }
+              placeholder="Enter Player No."
+              className="bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 outline-none w-[220px]"
+            />
+
             <button
               onClick={handleSearchPlayer}
               className="
@@ -591,14 +601,6 @@ const Auction = () => {
     transition-all
     duration-300
   "
-            >
-              <Search size={18} />
-              Search
-            </button>
-
-            <button
-              onClick={handleSearchPlayer}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-4 rounded-2xl flex items-center gap-2 font-bold shadow-lg"
             >
               <Search size={18} />
               Search
