@@ -19,9 +19,14 @@ const port = process.env.PORT || 5000;
 
 const server = http.createServer(app);
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.CLIENT_URL,
+];
+
 export const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -29,7 +34,7 @@ export const io = new Server(server, {
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin:allowedOrigins,
     credentials: true,
   })
 );
