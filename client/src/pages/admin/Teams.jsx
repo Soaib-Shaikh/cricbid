@@ -20,6 +20,8 @@ import {
   Wallet,
   TrendingUp,
   Users,
+  Copy,
+  Share2,
 } from "lucide-react";
 
 const Teams = () => {
@@ -58,6 +60,30 @@ const Teams = () => {
     dispatch,
   ]);
 
+  const registrationLink =
+    `${window.location.origin}/player-register/${selectedTournament?.tournamentId}`;
+
+  const handleCopyRegistration =
+    async () => {
+      await navigator.clipboard.writeText(
+        registrationLink
+      );
+
+      alert(
+        "Player registration link copied 🔗"
+      );
+    };
+
+  const handleShareRegistration =
+    () => {
+      window.open(
+        `https://wa.me/?text=${encodeURIComponent(
+          `🏏 CricBid Player Registration\nRegister here:\n${registrationLink}`
+        )}`,
+        "_blank"
+      );
+    };
+
   return (
     <div className="min-h-screen bg-[#F5F7FB] p-6">
 
@@ -74,15 +100,39 @@ const Teams = () => {
           </p>
         </div>
 
-        <button
-          onClick={() =>
-            navigate("/create-team")
-          }
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-2xl font-semibold flex items-center gap-2 shadow-lg transition-all"
-        >
-          <Plus size={20} />
-          Add Team
-        </button>
+        <div className="flex gap-3 flex-wrap">
+
+          <button
+            onClick={
+              handleCopyRegistration
+            }
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-2xl font-semibold flex items-center gap-2 shadow-lg"
+          >
+            <Copy size={18} />
+            Copy Registration Link
+          </button>
+
+          <button
+            onClick={
+              handleShareRegistration
+            }
+            className="bg-green-500 hover:bg-green-600 text-white px-5 py-3 rounded-2xl font-semibold flex items-center gap-2 shadow-lg"
+          >
+            <Share2 size={18} />
+            Share Link
+          </button>
+
+          <button
+            onClick={() =>
+              navigate("/create-team")
+            }
+            className="bg-green-700 hover:bg-green-800 text-white px-6 py-3 rounded-2xl font-semibold flex items-center gap-2 shadow-lg"
+          >
+            <Plus size={20} />
+            Add Team
+          </button>
+
+        </div>
 
       </div>
 

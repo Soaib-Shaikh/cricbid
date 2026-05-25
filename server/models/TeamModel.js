@@ -15,7 +15,7 @@ const teamSchema =
 
       budget: {
         type: Number,
-        default: 100000,
+        required: true,
       },
 
       spent: {
@@ -25,7 +25,7 @@ const teamSchema =
 
       remaining: {
         type: Number,
-        default: 100000,
+        required: true,
       },
 
       players: [

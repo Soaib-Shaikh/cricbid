@@ -48,6 +48,30 @@ const tournamentSchema =
         type: String,
       },
 
+      /* NEW FIELDS */
+      totalTeams: {
+        type: Number,
+        required: true,
+        min: 2,
+      },
+
+      playersPerTeam: {
+        type: Number,
+        required: true,
+        min: 1,
+      },
+
+      teamBudget: {
+        type: Number,
+        required: true,
+        min: 1000,
+      },
+
+      auctionCreated: {
+        type: Boolean,
+        default: false,
+      },
+
       createdBy: {
         type:
           mongoose.Schema.Types

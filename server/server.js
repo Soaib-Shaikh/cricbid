@@ -10,6 +10,7 @@ import teamRoutes from "./routes/TeamRoutes.js";
 import authRoutes from "./routes/AuthRoutes.js";
 import auctionRoutes from "./routes/AuctionRoutes.js";
 import tournamentRoutes from "./routes/TournamentRoutes.js";
+import auctionEventRoutes from "./routes/AuctionEventRoutes.js"
 
 dotenv.config();
 
@@ -55,7 +56,7 @@ io.on("connection", (socket) => {
       );
 
       console.log(
-        `Socket ${socket.id} joined room ${tournamentId}`
+        `Socket: ${socket.id} joined room ${tournamentId}`
       );
     }
   );
@@ -75,6 +76,7 @@ app.use("/api/teams", teamRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/auction", auctionRoutes);
 app.use("/api/tournament", tournamentRoutes);
+app.use("/api/auction-event", auctionEventRoutes);
 
 app.get("/", (req, res) => {
   res.send(

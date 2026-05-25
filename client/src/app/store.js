@@ -4,6 +4,7 @@ import teamReducer from '../features/team/teamSlice.js'
 import playerReducer from '../features/player/playerSlice.js'
 import auctionReducer from '../features/auction/auctionSlice.js'
 import tournamentReducer from '../features/tournament/tournamentSlice.js'
+import auctionEventReducer from '../features/auction/auctionEventSlice.js'
 
 const store = configureStore({
     reducer:{
@@ -12,6 +13,7 @@ const store = configureStore({
         player: playerReducer,
         auction: auctionReducer,
         tournament: tournamentReducer,
+        auctionEvent: auctionEventReducer,
 
     }
 })

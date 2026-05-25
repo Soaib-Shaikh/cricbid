@@ -12,6 +12,9 @@ export const createTournament =
         overs,
         startDate,
         endDate,
+        totalTeams,
+        playersPerTeam,
+        teamBudget,
       } = req.body;
 
       if (
@@ -21,26 +24,45 @@ export const createTournament =
         !city ||
         !overs ||
         !startDate ||
-        !endDate
+        !endDate ||
+        !totalTeams ||
+        !playersPerTeam ||
+        !teamBudget
       ) {
-        return res
-          .status(400)
-          .json({
-            message:
-              "All fields required",
-          });
+        return res.status(400).json({
+          message: "All fields required",
+        });
       }
 
       if (
         new Date(endDate) <
         new Date(startDate)
       ) {
-        return res
-          .status(400)
-          .json({
-            message:
-              "End date cannot be before start date",
-          });
+        return res.status(400).json({
+          message:
+            "End date cannot be before start date",
+        });
+      }
+
+      if (Number(totalTeams) < 2) {
+        return res.status(400).json({
+          message:
+            "Minimum 2 teams required",
+        });
+      }
+
+      if (Number(playersPerTeam) < 1) {
+        return res.status(400).json({
+          message:
+            "Players per team must be at least 1",
+        });
+      }
+
+      if (Number(teamBudget) < 1000) {
+        return res.status(400).json({
+          message:
+            "Team budget too low",
+        });
       }
 
       const logo = req.file
@@ -49,8 +71,7 @@ export const createTournament =
 
       const tournamentId = `CRIC${Math.floor(
         100000 +
-        Math.random() *
-        900000
+          Math.random() * 900000
       )}`;
 
       const tournament =
@@ -64,8 +85,11 @@ export const createTournament =
           startDate,
           endDate,
           logo,
-          createdBy:
-            req.user._id,
+          totalTeams,
+          playersPerTeam,
+          teamBudget,
+          auctionCreated: false,
+          createdBy: req.user._id,
         });
 
       res.status(201).json({
@@ -73,11 +97,9 @@ export const createTournament =
           "Tournament created successfully",
         tournament,
       });
-
     } catch (error) {
       res.status(500).json({
-        message:
-          error.message,
+        message: error.message,
       });
     }
   };
@@ -88,8 +110,7 @@ export const getTournaments =
     try {
       const tournaments =
         await Tournament.find({
-          createdBy:
-            req.user._id,
+          createdBy: req.user._id,
         }).sort({
           createdAt: -1,
         });
@@ -97,11 +118,9 @@ export const getTournaments =
       res.status(200).json({
         tournaments,
       });
-
     } catch (error) {
       res.status(500).json({
-        message:
-          error.message,
+        message: error.message,
       });
     }
   };
@@ -110,9 +129,8 @@ export const getTournaments =
 export const getSingleTournament =
   async (req, res) => {
     try {
-      const {
-        tournamentId,
-      } = req.params;
+      const { tournamentId } =
+        req.params;
 
       const tournament =
         await Tournament.findOne({
@@ -120,22 +138,18 @@ export const getSingleTournament =
         });
 
       if (!tournament) {
-        return res
-          .status(404)
-          .json({
-            message:
-              "Tournament not found",
-          });
+        return res.status(404).json({
+          message:
+            "Tournament not found",
+        });
       }
 
       res.status(200).json({
         tournament,
       });
-
     } catch (error) {
       res.status(500).json({
-        message:
-          error.message,
+        message: error.message,
       });
     }
   };
@@ -144,9 +158,8 @@ export const getSingleTournament =
 export const updateTournament =
   async (req, res) => {
     try {
-      const {
-        tournamentId,
-      } = req.params;
+      const { tournamentId } =
+        req.params;
 
       const {
         tournamentName,
@@ -156,18 +169,18 @@ export const updateTournament =
         overs,
         startDate,
         endDate,
+        totalTeams,
+        playersPerTeam,
+        teamBudget,
       } = req.body;
 
       if (
         new Date(endDate) <
         new Date(startDate)
       ) {
-        return res
-          .status(400)
-          .json({
-            message:
-              "Invalid dates",
-          });
+        return res.status(400).json({
+          message: "Invalid dates",
+        });
       }
 
       const tournament =
@@ -176,12 +189,10 @@ export const updateTournament =
         });
 
       if (!tournament) {
-        return res
-          .status(404)
-          .json({
-            message:
-              "Tournament not found",
-          });
+        return res.status(404).json({
+          message:
+            "Tournament not found",
+        });
       }
 
       tournament.tournamentName =
@@ -196,6 +207,12 @@ export const updateTournament =
         startDate;
       tournament.endDate =
         endDate;
+      tournament.totalTeams =
+        totalTeams;
+      tournament.playersPerTeam =
+        playersPerTeam;
+      tournament.teamBudget =
+        teamBudget;
 
       if (req.file) {
         tournament.logo =
@@ -206,14 +223,12 @@ export const updateTournament =
 
       res.status(200).json({
         message:
-          "Tournament updated",
+          "Tournament updated successfully",
         tournament,
       });
-
     } catch (error) {
       res.status(500).json({
-        message:
-          error.message,
+        message: error.message,
       });
     }
   };

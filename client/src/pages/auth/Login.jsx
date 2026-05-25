@@ -164,7 +164,7 @@ export default function Login() {
         <div className="p-10 lg:p-14 flex flex-col justify-center">
 
           <h2 className="text-4xl font-black text-gray-900">
-            Welcome Back 👋
+            Welcome Back 🏏
           </h2>
 
           <div className="mt-10 space-y-5">

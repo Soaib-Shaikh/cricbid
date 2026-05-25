@@ -15,6 +15,7 @@ import TeamPlayers from "../pages/admin/TeamPlayers";
 import AuctionHistory from "../pages/admin/AuctionHistory";
 import EditTournament from "../pages/admin/EditTournament";
 import UnsoldPlayers from "../pages/admin/UnsoldPlayers";
+import CreateAuction from "../pages/admin/CreateAuction";
 
 export default function AdminRoutes() {
   return (
@@ -39,6 +40,13 @@ export default function AdminRoutes() {
           path="/create-team"
           element={
             <CreateTeam />
+          }
+        />
+
+          <Route
+          path="/create-auction"
+          element={
+            <CreateAuction />
           }
         />
 

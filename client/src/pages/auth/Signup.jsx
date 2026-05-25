@@ -178,7 +178,7 @@ export default function Signup() {
           <div>
 
             <h2 className="text-4xl font-black text-gray-900">
-              Create Account ✨
+              Create Account 🏏
             </h2>
 
             <p className="text-gray-500 mt-3 text-sm">

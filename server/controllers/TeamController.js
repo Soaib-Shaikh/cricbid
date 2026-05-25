@@ -1,105 +1,145 @@
 import Team from "../models/TeamModel.js";
+import Tournament from "../models/TournamentModel.js";
 
 export const addTeam = async (req, res) => {
+  try {
+    const {
+      name,
+      tournamentId,
+    } = req.body;
 
-    try {
-
-        const {
-            name,
-            tournamentId
-        } = req.body;
-
-        // ✅ VALIDATION
-        if (!name || !tournamentId) {
-
-            return res.status(400).json({
-                message: "All fields are required"
-            });
-        }
-
-        // ✅ FILE CHECK
-        if (!req.file) {
-
-            return res.status(400).json({
-                message: "Logo is required"
-            });
-        }
-
-        const logo = req.file.path;
-
-        const team = await Team.create({
-            name,
-            logo,
-            tournamentId
-        });
-
-        return res.status(201).json({
-            message: "Team add successfully.",
-            team
-        });
-
-    } catch (error) {
-
-        console.log(error);
-
-        return res.status(500).json({
-            message: error.message
-        });
+    if (
+      !name ||
+      !tournamentId
+    ) {
+      return res.status(400).json({
+        message:
+          "All fields are required",
+      });
     }
+
+    if (!req.file) {
+      return res.status(400).json({
+        message:
+          "Logo is required",
+      });
+    }
+
+    const tournament =
+      await Tournament.findOne({
+        tournamentId,
+      });
+
+    if (!tournament) {
+      return res.status(404).json({
+        message:
+          "Tournament not found",
+      });
+    }
+
+    const existingTeams =
+      await Team.countDocuments({
+        tournamentId,
+      });
+
+    if (
+      existingTeams >=
+      tournament.totalTeams
+    ) {
+      return res.status(400).json({
+        message: `Only ${tournament.totalTeams} teams allowed`,
+      });
+    }
+
+    const alreadyExists =
+      await Team.findOne({
+        name,
+        tournamentId,
+      });
+
+    if (alreadyExists) {
+      return res.status(400).json({
+        message:
+          "Team already exists",
+      });
+    }
+
+    const logo = req.file.path;
+
+    const team =
+      await Team.create({
+        name,
+        logo,
+        budget:
+          tournament.teamBudget,
+        remaining:
+          tournament.teamBudget,
+        tournamentId,
+      });
+
+    return res.status(201).json({
+      message:
+        "Team created successfully 🔥",
+      team,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      message:
+        error.message,
+    });
+  }
 };
 
-export const getAllTeams = async (req, res) => {
-
+export const getAllTeams =
+  async (req, res) => {
     try {
+      const {
+        tournamentId,
+      } = req.params;
 
-        const { tournamentId } = req.params;
-
-        const teams = await Team.find({
-            tournamentId
+      const teams =
+        await Team.find({
+          tournamentId,
         });
 
-        return res.status(200).json({
-            teams
-        });
-
+      return res.status(200).json({
+        teams,
+      });
     } catch (error) {
-
-        return res.status(500).json({
-            message: error.message
-        });
-
+      return res.status(500).json({
+        message:
+          error.message,
+      });
     }
-};
+  };
 
 export const getSingleTeam =
   async (req, res) => {
-
     try {
-
       const { teamId } =
         req.params;
 
       const team =
-        await Team.findById(teamId)
-          .populate("players");
+        await Team.findById(
+          teamId
+        ).populate("players");
 
       if (!team) {
-
         return res.status(404).json({
-          message: "Team not found"
+          message:
+            "Team not found",
         });
-
       }
 
       return res.status(200).json({
-        team
+        team,
       });
-
     } catch (error) {
-
       return res.status(500).json({
-        message: error.message
+        message:
+          error.message,
       });
-
     }
   };
