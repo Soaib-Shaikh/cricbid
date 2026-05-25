@@ -3,9 +3,9 @@ import Player from "../models/PlayerModel.js";
 export const addPlayer = async (req, res) => {
     try {
         
-        const {name, role, battingStyle, bowlingStyle, address, phone, } = req.body;
+        const {name, role, battingStyle, bowlingStyle, address, phone, basePrice} = req.body;
         const {tournamentId} = req.params;
-        if (!name || !role || !battingStyle || !bowlingStyle || !address || !phone || !tournamentId) {
+        if (!name || !role || !battingStyle || !bowlingStyle || !address || !phone || !tournamentId || !basePrice) {
             return res.status(400).json({ message: "All fields are required" });
         }
 

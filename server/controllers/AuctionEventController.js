@@ -2,98 +2,87 @@ import AuctionEvent from "../models/AuctionEventModel.js";
 import Tournament from "../models/TournamentModel.js";
 import Team from "../models/TeamModel.js";
 
-
 // CREATE AUCTION EVENT
-export const createAuctionEvent =
-  async (req, res) => {
-    try {
-      const {
-        auctionName,
-        auctionDate,
-        auctionTime,
-        venue,
-        tournamentId,
-      } = req.body;
+export const createAuctionEvent = async (req, res) => {
+  try {
+    const {
+      auctionName,
+      auctionDate,
+      auctionTime,
+      venue,
+      tournamentId,
+    } = req.body;
 
-      if (
-        !auctionName ||
-        !auctionDate ||
-        !auctionTime ||
-        !venue ||
-        !tournamentId
-      ) {
-        return res.status(400).json({
-          message: "All fields required",
-        });
-      }
-
-      const tournament =
-        await Tournament.findOne({
-          tournamentId,
-        });
-
-      if (!tournament) {
-        return res.status(404).json({
-          message:
-            "Tournament not found",
-        });
-      }
-
-      const existingAuction =
-        await AuctionEvent.findOne({
-          tournamentId,
-        });
-
-      if (existingAuction) {
-        return res.status(400).json({
-          message:
-            "Auction already created for this tournament",
-        });
-      }
-
-      const teamCount =
-        await Team.countDocuments({
-          tournamentId,
-        });
-
-      if (
-        teamCount <
-        tournament.totalTeams
-      ) {
-        return res.status(400).json({
-          message: `Create all ${tournament.totalTeams} teams first`,
-        });
-      }
-
-      const auction =
-        await AuctionEvent.create({
-          auctionName,
-          auctionDate,
-          auctionTime,
-          venue,
-          tournamentId,
-          createdBy:
-            req.user._id,
-        });
-
-      tournament.auctionCreated =
-        true;
-
-      await tournament.save();
-
-      res.status(201).json({
-        message:
-          "Auction created successfully 🔥",
-        auction,
-      });
-
-    } catch (error) {
-      res.status(500).json({
-        message:
-          error.message,
+    if (
+      !auctionName ||
+      !auctionDate ||
+      !auctionTime ||
+      !venue ||
+      !tournamentId
+    ) {
+      return res.status(400).json({
+        message: "All fields required",
       });
     }
-  };
+
+    const tournament = await Tournament.findOne({
+      tournamentId,
+    });
+
+    if (!tournament) {
+      return res.status(404).json({
+        message: "Tournament not found",
+      });
+    }
+
+    const existingAuction = await AuctionEvent.findOne({
+      tournamentId,
+    });
+
+    if (existingAuction) {
+      return res.status(400).json({
+        message:
+          "Auction already created for this tournament",
+      });
+    }
+
+    const teamCount = await Team.countDocuments({
+      tournamentId,
+    });
+
+    if (teamCount < tournament.totalTeams) {
+      return res.status(400).json({
+        message: `Create all ${tournament.totalTeams} teams first`,
+      });
+    }
+
+    const auction = await AuctionEvent.create({
+      auctionName,
+      auctionDate,
+      auctionTime,
+      venue,
+      tournamentId,
+      createdBy: req.user._id,
+    });
+
+    await Tournament.findOneAndUpdate(
+      { tournamentId },
+      { auctionCreated: true }
+    );
+
+    return res.status(201).json({
+      message: "Auction created successfully 🔥",
+      auction,
+    });
+
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
 
 // GET ALL AUCTIONS
