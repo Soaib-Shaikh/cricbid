@@ -88,10 +88,7 @@ export const startAuction = async (
 };
 
 // Place Bid
-export const placeBid = async (
-  req,
-  res
-) => {
+export const placeBid = async (req, res) => {
   try {
     const {
       teamId,
@@ -99,85 +96,68 @@ export const placeBid = async (
       tournamentId,
     } = req.body;
 
-    const auction =
-      await Auction.findOne({
-        tournamentId,
-      });
+    const auction = await Auction.findOne({
+      tournamentId,
+    });
 
     if (!auction) {
-      return res
-        .status(404)
-        .json({
-          message:
-            "Auction not found",
-        });
+      return res.status(404).json({
+        message: "Auction not found",
+      });
     }
 
-    const team =
-      await Team.findById(
-        teamId
-      );
+    const team = await Team.findById(teamId);
 
     if (!team) {
-      return res
-        .status(404)
-        .json({
-          message:
-            "Team not found",
-        });
+      return res.status(404).json({
+        message: "Team not found",
+      });
     }
 
-    const bidAmount =
-      Number(amount);
+    const bidAmount = Number(amount);
+
+    if (team.remaining < bidAmount) {
+      return res.status(400).json({
+        message: "Not enough budget",
+      });
+    }
+
+    const isFirstBid = !auction.highestBidder;
 
     if (
-      team.remaining <
-      bidAmount
+      !isFirstBid &&
+      bidAmount <= auction.currentBid
     ) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Not enough budget",
-        });
+      return res.status(400).json({
+        message: "Bid must be higher",
+      });
     }
 
-    if (
-      bidAmount <=
-      auction.currentBid
-    ) {
-      return res
-        .status(400)
-        .json({
-          message:
-            "Bid must be higher",
-        });
-    }
-
-    auction.currentBid =
-      bidAmount;
-    auction.highestBidder =
-      teamId;
+    auction.currentBid = bidAmount;
+    auction.highestBidder = teamId;
 
     await auction.save();
 
-    io.to(tournamentId).emit(
-      "bidUpdate",
-      {
-        currentBid:
-          auction.currentBid,
-        teamId:
-          auction.highestBidder,
-        playerId:
-          auction.currentPlayer,
-      }
-    );
+    const updatedAuction = await Auction.findById(
+      auction._id
+    )
+      .populate(
+        "highestBidder",
+        "name logo remaining"
+      )
+      .populate("currentPlayer");
 
-    res.json(auction);
+    io.to(tournamentId).emit("bidUpdate", {
+      currentBid: updatedAuction.currentBid,
+      highestBidder: updatedAuction.highestBidder,
+      player: updatedAuction.currentPlayer,
+    });
+
+    res.json(updatedAuction);
+
   } catch (error) {
     res.status(500).json({
-      message:
-        error.message,
+      message: error.message,
     });
   }
 };

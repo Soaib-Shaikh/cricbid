@@ -34,7 +34,7 @@ const PlayerRegistration = () => {
       bowlingStyle: "",
       address: "",
       phone: "",
-      basePrice: "",
+      basePrice: 1000,
       image: null,
     });
 
@@ -332,7 +332,7 @@ const PlayerRegistration = () => {
                 type="number"
                 name="basePrice"
                 value={
-                  formData.basePrice
+                  formData.basePrice || 1000
                 }
                 onChange={
                   handleChange

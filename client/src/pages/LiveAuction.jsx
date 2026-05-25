@@ -114,11 +114,10 @@ const LiveAuction = () => {
       (data) => {
         setAuctionData(
           (prev) => ({
-            ...prev,
-            currentBid:
-              data.currentBid,
+            player: data.player || prev?.player,
+            currentBid: data.currentBid,
             highestBidder:
-              data.teamId,
+              data.highestBidder || null,
           })
         );
       }

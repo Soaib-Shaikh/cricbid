@@ -16,6 +16,7 @@ export const addPlayer = async (req, res) => {
             role,
             battingStyle,
             bowlingStyle,
+            basePrice: Number(basePrice) || 1000,
             address,
             phone,
             image,

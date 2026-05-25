@@ -3,138 +3,119 @@ import {
   Trophy,
   UserCircle2,
   BadgeIndianRupee,
+  Target,
   Shield,
-  Zap,
+  Star,
 } from "lucide-react";
 
 const LivePlayerDisplay = ({
   auctionData,
 }) => {
-  const player =
-    auctionData?.player || {};
+  const { player } =
+    auctionData;
 
   return (
-    <div className="h-full bg-gradient-to-b from-slate-900/95 via-slate-800/95 to-slate-900/95 border border-cyan-400/10 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+    <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-6 h-full">
 
-      {/* BACKGROUND GLOW */}
-      <div className="absolute top-10 left-10 w-32 h-32 bg-cyan-500/10 blur-3xl rounded-full" />
-      <div className="absolute bottom-10 right-10 w-28 h-28 bg-yellow-500/10 blur-3xl rounded-full" />
+      {/* TOP */}
+      <div className="flex items-center justify-between mb-6">
 
-      {/* HEADER */}
-      <div className="relative z-10 flex items-center justify-between mb-6">
-
-        <div className="bg-cyan-500/15 border border-cyan-300/20 px-4 py-3 rounded-2xl">
-          <span className="text-cyan-200 font-black text-sm">
-            PLAYER SPOTLIGHT
-          </span>
+        <div className="bg-cyan-100 text-cyan-700 px-4 py-2 rounded-2xl font-bold text-sm">
+          PLAYER SPOTLIGHT
         </div>
 
-        <div className="bg-gradient-to-r from-yellow-300 to-orange-500 text-black px-4 py-3 rounded-2xl flex items-center gap-2 font-black text-xs shadow-lg">
-          <Trophy size={14} />
-          STAR PLAYER
+        <div className="bg-yellow-100 text-yellow-700 px-4 py-2 rounded-2xl flex items-center gap-2 font-black text-xs">
+          <Star size={14} />
+          FEATURED
         </div>
 
       </div>
 
-      {/* IMAGE */}
-      <div className="relative z-10 flex justify-center">
-
-        <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-cyan-400 shadow-[0_0_30px_rgba(34,211,238,0.35)]">
+      {/* PLAYER IMAGE */}
+      <div className="flex justify-center">
+        <div className="w-full h-[380px] rounded-3xl overflow-hidden bg-gradient-to-br from-slate-50 to-cyan-50 border border-gray-200 shadow-md p-4 flex items-center justify-center">
 
           {player?.image ? (
             <img
               src={player.image}
               alt={player.name}
-              className="w-full h-full object-cover"
+              className="max-w-full max-h-full object-contain"
             />
           ) : (
-            <div className="w-full h-full bg-slate-800 flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center">
               <UserCircle2
-                size={90}
-                className="text-gray-500"
+                size={100}
+                className="text-gray-400"
               />
             </div>
           )}
 
         </div>
-
       </div>
 
       {/* NAME */}
-      <div className="relative z-10 text-center mt-6">
-
-        <h2 className="text-4xl font-black text-white leading-tight break-words">
-          {player?.name || "No Player"}
+      <div className="text-center mt-6">
+        <h2 className="text-4xl font-black text-slate-900">
+          {player.name}
         </h2>
 
-        <p className="text-cyan-300 font-bold mt-3 text-xl">
-          {player?.role || "N/A"}
+        <p className="text-cyan-600 font-bold text-lg mt-2">
+          {player.role}
         </p>
-
       </div>
 
-      {/* DETAILS */}
-      <div className="relative z-10 grid grid-cols-2 gap-4 mt-6">
+      {/* STATS */}
+      <div className="grid grid-cols-2 gap-4 mt-6">
 
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-5">
+        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-4 text-center">
+          <Target
+            size={20}
+            className="mx-auto text-cyan-500"
+          />
 
-          <div className="flex items-center gap-2 mb-3">
-            <Shield
-              size={15}
-              className="text-cyan-300"
-            />
+          <p className="text-xs uppercase text-slate-500 mt-3">
+            Batting
+          </p>
 
-            <span className="text-gray-400 text-xs uppercase tracking-wider">
-              Batting
-            </span>
-          </div>
-
-          <h3 className="text-white font-bold text-lg leading-8">
-            {player?.battingStyle || "N/A"}
+          <h3 className="font-black text-slate-900 mt-2">
+            {player.battingStyle || "N/A"}
           </h3>
-
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-5">
+        <div className="bg-slate-50 border border-slate-200 rounded-3xl p-4 text-center">
+          <Shield
+            size={20}
+            className="mx-auto text-purple-500"
+          />
 
-          <div className="flex items-center gap-2 mb-3">
-            <Zap
-              size={15}
-              className="text-red-300"
-            />
+          <p className="text-xs uppercase text-slate-500 mt-3">
+            Bowling
+          </p>
 
-            <span className="text-gray-400 text-xs uppercase tracking-wider">
-              Bowling
-            </span>
-          </div>
-
-          <h3 className="text-white font-bold text-lg leading-8">
-            {player?.bowlingStyle || "N/A"}
+          <h3 className="font-black text-slate-900 mt-2">
+            {player.bowlingStyle || "N/A"}
           </h3>
-
         </div>
 
       </div>
 
-      {/* BASE PRICE */}
-      <div className="relative z-10 mt-6 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-3xl p-5 shadow-[0_0_25px_rgba(249,115,22,0.35)]">
+      {/* PRICE */}
+      <div className="mt-6 bg-gradient-to-r from-emerald-500 to-green-600 rounded-3xl p-6 shadow-lg text-center">
 
-        <div className="flex items-center justify-center gap-2">
-
+        <div className="flex justify-center items-center gap-2">
           <BadgeIndianRupee
-            size={22}
+            size={20}
             className="text-white"
           />
 
-          <span className="text-white text-sm font-black uppercase tracking-widest">
+          <span className="text-white uppercase font-bold text-sm">
             Base Price
           </span>
-
         </div>
 
-        <h3 className="text-5xl font-black text-white text-center mt-4">
-          ₹ {player?.basePrice || 0}
-        </h3>
+        <h2 className="text-5xl font-black text-white mt-4">
+          ₹ {player.basePrice?.toLocaleString()}
+        </h2>
 
       </div>
 

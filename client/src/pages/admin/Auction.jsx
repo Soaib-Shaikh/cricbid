@@ -34,7 +34,9 @@ import {
   sellPlayer,
   startAuction,
   unsoldPlayer,
+  getCurrentAuction,
 } from "../../features/auction/auctionSlice";
+import socket from "../../socket/socket";
 
 const Auction = () => {
   const dispatch =
@@ -60,6 +62,10 @@ const Auction = () => {
   } = useSelector(
     (state) =>
       state.tournament
+  );
+
+  const { current } = useSelector(
+    (state) => state.auction
   );
 
   const [
@@ -103,25 +109,18 @@ const Auction = () => {
   ] = useState(null);
 
   useEffect(() => {
-    if (
-      selectedTournament?.tournamentId
-    ) {
+    if (selectedTournament?.tournamentId) {
       dispatch(
-        getPlayers(
-          selectedTournament.tournamentId
-        )
+        getPlayers(selectedTournament.tournamentId)
       );
 
       dispatch(
-        getAllTeams(
-          selectedTournament.tournamentId
-        )
+        getAllTeams(selectedTournament.tournamentId)
       );
+
+      dispatch(getCurrentAuction());
     }
-  }, [
-    dispatch,
-    selectedTournament,
-  ]);
+  }, [dispatch, selectedTournament]);
 
   useEffect(() => {
     if (
@@ -160,6 +159,79 @@ const Auction = () => {
     dispatch,
   ]);
 
+  useEffect(() => {
+    if (current?.currentPlayer) {
+      setCurrentPlayer((prev) => ({
+        ...prev,
+        ...current.currentPlayer,
+      }));
+
+      setCurrentBid(current.currentBid);
+      setHighestBidder(current.highestBidder || null);
+      setAuctionStarted(current.status === "running");
+    }
+  }, [current]);
+
+  useEffect(() => {
+    if (!selectedTournament?.tournamentId)
+      return;
+
+    socket.emit(
+      "joinAuction",
+      selectedTournament.tournamentId
+    );
+
+    socket.on("auctionStart", (data) => {
+      setCurrentPlayer(data.player);
+      setCurrentBid(data.basePrice);
+      setHighestBidder(null);
+      setBidHistory([]);
+      setAuctionStarted(true);
+    });
+
+    socket.on("bidUpdate", (data) => {
+      setCurrentBid(data.currentBid);
+      setHighestBidder(data.highestBidder);
+
+      setBidHistory((prev) => [
+        ...prev,
+        {
+          team: {
+            name: data.highestBidder?.name || "Unknown",
+            logo: data.highestBidder?.logo || "",
+          },
+          amount: data.currentBid,
+        },
+      ]);
+
+      dispatch(
+        getAllTeams(
+          selectedTournament.tournamentId
+        )
+      );
+    });
+
+    socket.on("playerSold", () => {
+      dispatch(
+        getAllTeams(
+          selectedTournament.tournamentId
+        )
+      );
+
+      dispatch(
+        getPlayers(
+          selectedTournament.tournamentId
+        )
+      );
+    });
+
+    return () => {
+      socket.off("auctionStart");
+      socket.off("bidUpdate");
+      socket.off("playerSold");
+    };
+  }, [selectedTournament, dispatch]);
+
   // SEARCH PLAYER
   const handleSearchPlayer = () => {
     const player =
@@ -197,218 +269,125 @@ const Auction = () => {
   };
 
   // START AUCTION
-  const handleStartAuction =
-    async () => {
-      if (
-        !currentPlayer
-      ) {
-        alert(
-          "Select player first"
-        );
-        return;
-      }
+  const handleStartAuction = async () => {
+    if (!currentPlayer) {
+      alert("Select player first");
+      return;
+    }
 
-      const res =
-        await dispatch(
-          startAuction({
-            playerId:
-              currentPlayer._id,
-            tournamentId:
-              selectedTournament.tournamentId,
-          })
-        );
+    const res = await dispatch(
+      startAuction({
+        playerId: currentPlayer._id,
+        tournamentId:
+          selectedTournament.tournamentId,
+      })
+    );
 
-      if (
-        res.meta
-          .requestStatus ===
-        "fulfilled"
-      ) {
-        setAuctionStarted(true);
-      }
-    };
+    if (
+      res.meta.requestStatus ===
+      "fulfilled"
+    ) {
+      setAuctionStarted(true);
+
+      setCurrentBid(
+        currentPlayer.basePrice || 1000
+      );
+
+      setHighestBidder(null);
+      setBidHistory([]);
+    }
+  };
 
   // QUICK BID (+1000)
-  const handleQuickBid =
-    async (team) => {
-      if (
-        !auctionStarted
-      ) {
-        alert(
-          "Start auction first"
-        );
-        return;
-      }
+  const handleQuickBid = async (team) => {
+    if (!auctionStarted) {
+      alert("Start auction first");
+      return;
+    }
 
-      const bidAmount =
-        currentBid + 1000;
+    const bidAmount = highestBidder
+      ? currentBid + 1000
+      : currentBid;
 
-      const res =
-        await dispatch(
-          placeBid({
-            teamId:
-              team._id,
-            amount:
-              bidAmount,
-            tournamentId:
-              selectedTournament.tournamentId,
-          })
-        );
+    const res = await dispatch(
+      placeBid({
+        teamId: team._id,
+        amount: bidAmount,
+        tournamentId:
+          selectedTournament.tournamentId,
+      })
+    );
 
-      if (
-        res.meta
-          .requestStatus ===
-        "fulfilled"
-      ) {
-        setCurrentBid(
-          bidAmount
-        );
-
-        setHighestBidder(
-          team
-        );
-
-        setBidHistory(
-          (prev) => [
-            ...prev,
-            {
-              team,
-              amount:
-                bidAmount,
-            },
-          ]
-        );
-      }
-    };
+    if (res.meta.requestStatus === "fulfilled") {
+      setHighestBidder(res.payload.highestBidder);
+      setCurrentBid(res.payload.currentBid);
+    }
+  };
 
   // CUSTOM BID
-  const handleCustomBid =
-    async () => {
-      if (
-        !auctionStarted
-      ) {
-        alert(
-          "Start auction first"
-        );
-        return;
-      }
+  const handleCustomBid = async () => {
+    if (!auctionStarted) {
+      alert("Start auction first");
+      return;
+    }
 
-      if (
-        !selectedTeam
-      ) {
-        alert(
-          "Select team first"
-        );
-        return;
-      }
+    if (!selectedTeam) {
+      alert("Select team first");
+      return;
+    }
 
-      const bidAmount =
-        Number(
-          customBidAmount
-        );
+    const minimumBid = highestBidder
+      ? currentBid + 1000
+      : currentBid;
 
-      if (
-        !bidAmount ||
-        bidAmount <=
-        currentBid
-      ) {
-        alert(
-          "Enter higher bid amount"
-        );
-        return;
-      }
+    const bidAmount = Number(customBidAmount);
 
-      const res =
-        await dispatch(
-          placeBid({
-            teamId:
-              selectedTeam._id,
-            amount:
-              bidAmount,
-            tournamentId:
-              selectedTournament.tournamentId,
-          })
-        );
+    if (!bidAmount || bidAmount < minimumBid) {
+      alert(`Minimum bid is ₹${minimumBid}`);
+      return;
+    }
 
-      if (
-        res.meta
-          .requestStatus ===
-        "fulfilled"
-      ) {
-        setCurrentBid(
-          bidAmount
-        );
+    const res = await dispatch(
+      placeBid({
+        teamId: selectedTeam._id,
+        amount: bidAmount,
+        tournamentId:
+          selectedTournament.tournamentId,
+      })
+    );
 
-        setHighestBidder(
-          selectedTeam
-        );
+    if (res.meta.requestStatus === "fulfilled") {
+      setHighestBidder(res.payload.highestBidder);
+      setCurrentBid(res.payload.currentBid);
 
-        setBidHistory(
-          (prev) => [
-            ...prev,
-            {
-              team:
-                selectedTeam,
-              amount:
-                bidAmount,
-            },
-          ]
-        );
-
-        setCustomBidAmount(
-          ""
-        );
-
-        setSelectedTeam(
-          null
-        );
-      }
-    };
+      setCustomBidAmount("");
+      setSelectedTeam(null);
+    }
+  };
 
   // SOLD
-  const handleSold =
-    async () => {
-      if (
-        !highestBidder
-      ) {
-        alert(
-          "No bids placed"
-        );
-        return;
-      }
+  const handleSold = async () => {
+    if (!currentPlayer) {
+      alert("No player selected");
+      return;
+    }
 
-      const res =
-        await dispatch(
-          sellPlayer(
-            selectedTournament.tournamentId
-          )
-        );
+    const res = await dispatch(
+      sellPlayer(selectedTournament.tournamentId)
+    );
 
-      if (
-        res.meta
-          .requestStatus ===
-        "fulfilled"
-      ) {
-        alert(
-          `${currentPlayer.name} sold to ${highestBidder.name}`
-        );
+    if (res.meta.requestStatus === "fulfilled") {
+      dispatch(getAllTeams(selectedTournament.tournamentId));
+      dispatch(getPlayers(selectedTournament.tournamentId));
 
-        dispatch(
-          getAllTeams(
-            selectedTournament.tournamentId
-          )
-        );
-
-        dispatch(
-          getPlayers(
-            selectedTournament.tournamentId
-          )
-        );
-
-        setAuctionStarted(
-          false
-        );
-      }
-    };
+      setAuctionStarted(false);
+      setCurrentPlayer(null);
+      setCurrentBid(0);
+      setHighestBidder(null);
+      setBidHistory([]);
+      setPlayerNumber("");
+    }
+  };
 
   // UNSOLD
   const handleUnsold =
@@ -627,8 +606,8 @@ const Auction = () => {
         <div className="xl:col-span-3 space-y-6">
 
           <BidPanel
-            currentBid={currentBid}
-            highestBidder={highestBidder}
+            currentBid={current?.currentBid || currentBid}
+            highestBidder={current?.highestBidder || highestBidder}
           />
 
           <AuctionControls
