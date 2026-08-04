@@ -23,7 +23,6 @@ import {
 
 import AuctionStatus from "../components/auction/AuuctionStatus";
 import LivePlayerDisplay from "../components/auction/LivePlayerDisplay";
-import LiveAuctionTeams from "../components/auction/LiveAuctionTeams";
 import SoldBanner from "../components/auction/SoldBanner";
 import UnsoldBanner from "../components/auction/UnsoldBanner";
 
@@ -217,7 +216,7 @@ const PublicLiveAuction = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-emerald-50">
 
-      <div className="max-w-7xl mx-auto p-4 lg:p-6">
+      <div className="max-w-[1700px] mx-auto p-4 lg:p-6">
 
         {/* TOP */}
         <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-6 mb-6">
@@ -303,7 +302,7 @@ const PublicLiveAuction = () => {
           auctionData && (
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
 
-              <div className="xl:col-span-3">
+              <div className="xl:col-span-4">
                 <LivePlayerDisplay
                   auctionData={
                     auctionData
@@ -311,7 +310,7 @@ const PublicLiveAuction = () => {
                 />
               </div>
 
-              <div className="xl:col-span-5">
+              <div className="xl:col-span-8">
                 <div className="bg-white rounded-3xl border border-gray-200 shadow-xl p-8 h-full">
 
                   <div className="text-center">
@@ -322,7 +321,7 @@ const PublicLiveAuction = () => {
                     </div>
 
                     <div className="mt-8 flex justify-center">
-                      <div className="relative bg-gradient-to-br from-slate-900 via-green-700 to-emerald-500 rounded-[30px] px-12 py-8 shadow-2xl min-w-[450px] overflow-hidden border border-white/20">
+                      <div className="relative w-full max-w-[900px] bg-gradient-to-r from-slate-900 via-green-700 to-emerald-500 rounded-[35px] px-12 py-12 shadow-2xl overflow-hidden border border-white/20">
 
                         <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
                         <div className="absolute bottom-0 left-0 w-24 h-24 bg-yellow-300/20 rounded-full blur-2xl"></div>
@@ -331,7 +330,7 @@ const PublicLiveAuction = () => {
                           LIVE CURRENT BID
                         </p>
 
-                        <h1 className="text-7xl font-black text-white mt-4 text-center">
+                        <h1 className="text-8xl font-black text-white mt-4 text-center animate-pulse">
                           ₹ {auctionData.currentBid?.toLocaleString()}
                         </h1>
 
@@ -341,7 +340,7 @@ const PublicLiveAuction = () => {
                   </div>
 
                   {/* HIGHEST BIDDER */}
-                  <div className="mt-8 bg-slate-50 border border-slate-200 rounded-3xl p-6">
+                  <div className="mt-8 bg-gradient-to-r from-slate-50 to-emerald-50 border border-emerald-200 rounded-3xl p-8">
 
                     <p className="text-xs uppercase tracking-wider text-slate-500 font-bold text-center">
                       Highest Bidder
@@ -356,7 +355,7 @@ const PublicLiveAuction = () => {
                             <img
                               src={leadingTeam.logo}
                               alt={leadingTeam.name}
-                              className="w-full h-full object-contain"
+                              className="w-full h-full object-contain drop-shadow-2xl"
                             />
                           ) : (
                             <span className="text-3xl">👑</span>
@@ -414,7 +413,7 @@ const PublicLiveAuction = () => {
                   </div>
 
                   {/* LIVE BID FEED */}
-                  <div className="mt-6 bg-white border border-gray-200 rounded-3xl p-5 h-[300px] overflow-hidden shadow-sm">
+                  <div className="mt-6 bg-white border border-gray-200 rounded-3xl p-5 h-[420px] overflow-hidden shadow-sm">
                     <h3 className="text-xl font-black text-slate-900 mb-4">
                       🔴 Live Bidding Feed
                     </h3>
@@ -466,14 +465,6 @@ const PublicLiveAuction = () => {
                   </div>
 
                 </div>
-              </div>
-
-              <div className="xl:col-span-4">
-                <LiveAuctionTeams
-                  highestBidder={
-                    auctionData.highestBidder
-                  }
-                />
               </div>
 
             </div>

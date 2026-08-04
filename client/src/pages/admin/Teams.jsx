@@ -181,7 +181,7 @@ const Teams = () => {
                       </div>
 
                       <span className="font-bold text-gray-900">
-                        ₹ {team.budget}
+                        ₹ {team.remaining + team.spent}
                       </span>
 
                     </div>

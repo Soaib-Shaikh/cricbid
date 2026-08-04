@@ -227,8 +227,8 @@ export const sellPlayer = async (
     team.spent +=
       finalPrice;
     team.remaining =
-      team.budget -
-      team.spent;
+      team.remaining -
+      finalPrice;
 
     await team.save();
 
